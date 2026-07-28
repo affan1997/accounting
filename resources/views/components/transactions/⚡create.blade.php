@@ -8,7 +8,7 @@ new class extends Component
     public $date_of_transaction = '';
     public function save_transaction(){
         Transaction::create([
-            'description' => str_replace(['And','To','Of','For', 'A'],['and', 'to', 'of', 'for', 'a'],ucwords(strtolower($this->description))),
+            'description' => str_replace(['And','To','Of','For', 'A', 'The'],['and', 'to', 'of', 'for', 'a', 'the'],ucwords(strtolower($this->description))),
             'date_of_transaction' => $this->date_of_transaction,
         ]);
         session()->flash('save_transaction_message', 'Transaction created successfuly');
@@ -16,7 +16,7 @@ new class extends Component
     }
 };
 ?>
-<!-- Edit Modal -->
+<!-- Add Transaction Modal -->
         <div wire:ignore class="modal fade" id="add_transaction_modal" tabindex="-1" data-bs-backdrop="static" aria-labelledby="add_transaction_modal_label" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">

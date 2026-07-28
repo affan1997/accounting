@@ -21,6 +21,13 @@
         .alert{
             /* height: 10; */
         }
+        .transactions_table{
+            border-collapse: collapse;
+            border-radius: 1.2em;
+            overflow: hidden;
+            width: 100%;
+            margin: 0;
+        }
         
     </style>
 </head>

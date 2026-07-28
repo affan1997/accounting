@@ -13,11 +13,17 @@ class AccountSeeder extends Seeder
      */
     public function run(): void
     {
+        // validated accounts by waleed
         $accounts = [
             [
                 'name' => 'Cash',
                 'head' => 'Asset',
                 'normal_balance' => 'Debit'
+            ],
+            [
+                'name' => 'Accounts Payable',
+                'head' => 'Liability',
+                'normal_balance' => 'Credit'
             ],
             [
                 'name' => 'Accounts Payable',
@@ -36,14 +42,20 @@ class AccountSeeder extends Seeder
             ],
             [
                 'name' => 'Common Stocks',
-                'head' => 'Equity',
-                'normal_balance' => 'Credit'
+                'head' => 'Asset',
+                'normal_balance' => 'Debit'
             ],
             [
                 'name' => 'Accounts Receivable',
                 'head' => 'Asset',
                 'normal_balance' => 'Debit'
             ],
+            [
+                'name' => 'Capital',
+                'head' => 'Equity',
+                'normal_balance' => 'Credit'
+            ],
+            
         ];
         DB::table('accounts')->insert($accounts);
     }

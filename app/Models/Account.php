@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Account extends Model
 {
-    //
+    public $fillable = ['name', 'head', 'normal_balance'];
 }

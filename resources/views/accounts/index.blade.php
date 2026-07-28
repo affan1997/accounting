@@ -6,9 +6,7 @@
     <title>Accounts</title>
     <link rel="stylesheet" href="{{asset('assets/bootstrap/css/bootstrap.min.css')}}">
     <style>
-        #add_account_form{
-            display: none;
-        }
+        
         .btn-sm{
             padding: 3px;
             font-size: 13px;
@@ -19,6 +17,13 @@
             display:flex;
             flex-wrap:nowrap;
         }
+        .accounts_table{
+            border-collapse: collapse;
+            border-radius: 1.2em;
+            overflow: hidden;
+            width: 100%;
+            margin: 0;
+        }
  
         
     </style>
@@ -26,8 +31,19 @@
 <body>
     <div class="container p-5">
         <h4>Accounts</h4>
-        <button class="btn btn-sm btn-dark" id="add_button">Add Account</button>
-        <div class="mt-2">
+        @if (session()->has('save_account_message'))
+            <div id="save_account_alert" class="alert alert-success" role="alert">{{ session('save_account_message') }}</div>
+        @endif
+        @if (session()->has('update_account_message'))
+            <div id="update_account_alert" class="alert alert-primary" role="alert">{{ session('update_account_message') }}</div>
+        @endif
+        @if (session()->has('delete_account_message'))
+            <div id="delete_account_alert" class="alert alert-danger" role="alert">{{ session('delete_account_message') }}</div>
+        @endif
+        <button class="btn btn-sm btn-dark" id="add_account_button" data-bs-toggle="modal" data-bs-target="#add_account_modal">Add Account</button>
+        <livewire:accounts.create/>
+        <livewire:accounts.index/>
+        {{-- <div class="mt-2">
             <form action="{{ route('accounts.store') }}" method="POST" id="add_account_form" autocomplete="off">
                 @csrf
                 <div class="row">
@@ -59,15 +75,15 @@
                     </div>
                 </div>
             </form>
-        </div>
-        <form action="{{ route('accounts.search') }}" method="GET" autocomplete="off" id="search_form">
+        </div> --}}
+        {{-- <form action="{{ route('accounts.search') }}" method="GET" autocomplete="off" id="search_form">
             <div class="input-group input-group-sm mb-3 mt-3">
                 <input type="text" name="search" class="form-control form-control-sm bg-success-subtle" placeholder="Search accounts here..."  >
                 <button type="submit" class="btn btn-sm btn-secondary">Search</button>
                 <a href="{{route('accounts.index')}}" class="btn btn-sm btn-dark" onclick="localStorage.clear()">Remove filter</a>    
             </div>
-        </form>
-        <div class="mt-2">
+        </form> --}}
+        {{-- <div class="mt-2">
             <table class="table table-sm">
                 <thead>
                     <tr>
@@ -105,25 +121,37 @@
             <div class="mt-3">
                 {{ $accounts->links() }}
             </div>
-        </div>
+        </div> --}}
     </div>
+    <script src="{{ asset('assets/bootstrap/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('assets/jquery/jquery.js') }}"></script>
     <script>
        $(document).ready(function(){
-            $('#add_button').click(function(){
-            $('#add_account_form').show();
+            $("#save_account_alert").fadeTo(2000, 500).slideUp(500, function(){
+                $("#save_account_alert").slideUp(500);
+            });
+            $("#update_account_alert").fadeTo(2000, 500).slideUp(500, function(){
+                $("#updtae_account_alert").slideUp(500);
+            });
+            $("#delete_account_alert").fadeTo(2000, 500).slideUp(500, function(){
+                $("#delete_account_alert").slideUp(500);
             });
        }) ;
-       document.getElementById("search_form").onsubmit = function(){
-        const search = document.querySelector('input[name="search"]').value;
-        localStorage.setItem('search',search);
-       };
-       window.onload = function(){
-        const savedSearch = localStorage.getItem('search');
-        if(savedSearch){
-            document.querySelector('input[name="search"]').value = savedSearch;
-        }
-       };
+       var head = document.getElementById("head");
+       var head_value =head.value;
+       
+    //    document.getElementById("search_form").onsubmit = function(){
+    //     const search = document.querySelector('input[name="search"]').value;
+    //     localStorage.setItem('search',search);
+    //    };
+    //    window.onload = function(){
+    //     const savedSearch = localStorage.getItem('search');
+    //     if(savedSearch){
+    //         document.querySelector('input[name="search"]').value = savedSearch;
+    //     }
+    //    };
+    
     </script>
+    
 </body>
 </html>

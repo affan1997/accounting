@@ -60,7 +60,7 @@ new class extends Component
 ?>
 
 <div class="mt-2">
-    <!-- Edit Modal -->
+    <!-- Transaction Edit Modal -->
         <div wire:ignore class="modal fade" id="edit_transaction_modal" tabindex="-1" data-bs-backdrop="static" aria-labelledby="edit_transaction_modal_label" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -95,15 +95,57 @@ new class extends Component
             </div>
         </div>
         </div>
-    <!-- Edit Modal ends here -->
-    <form autocomplete="off" id="search_form">
+    <!-- Transaction Edit Modal ends here -->
+    <div class="card">
+        <div class="card-body">
+            <form autocomplete="off" id="search_form">
+                <div class="input-group input-group-sm mb-3 mt-3">
+                    <input type="text" wire:model.live="search" class="form-control form-control-sm bg-success-subtle" placeholder="Search transactions here..." >
+                    {{-- <button wire:click=search class="btn btn-sm btn-secondary">Search</button> --}}
+                    {{-- <a href="" class="btn btn-sm btn-dark" onclick="localStorage.clear()">Remove filter</a>     --}}
+                </div>
+            </form>
+            <table class="table table-sm table-secondary table-hover transactions_table">
+                <caption>List of Transactions</caption>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Description</th>
+                        <th>Date of Transaction</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if ($this->results()->isNotEmpty())
+                        @foreach($this->results() as $transaction)
+                            <tr>
+                                <td>{{$transaction->id}}</td>
+                                <td>{{$transaction->description}}</td>
+                                <td>{{date('l jS F Y' ,strtotime($transaction->date_of_transaction))}}</td>
+                                <td id="action_buttons">
+                                    <button type="button"  wire:click="edit_transaction({{ $transaction->id }})" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#edit_transaction_modal" id="edit_button">Edit</button>&nbsp
+                                    <button type="button" wire:click="delete_transaction({{ $transaction->id }})" wire:confirm="Are you sure you want to delete transaction?" class="btn btn-sm btn-danger">Delete</button>
+                                </td>
+                            </tr>
+                        @endforeach    
+                    @else
+                        <tr>
+                            <td colspan="4" class="text-center">No Transaction found!</td>
+                        </tr>
+                    @endif
+                </tbody>
+            </table>
+            <div class="mt-3">
+                {{ $this->results()->links(data: ['scrollTo' => false]) }}
+            </div>
+        </div>
+    </div>
+    {{-- <form autocomplete="off" id="search_form">
         <div class="input-group input-group-sm mb-3 mt-3">
             <input type="text" wire:model.live="search" class="form-control form-control-sm bg-success-subtle" placeholder="Search transactions here..." >
-            {{-- <button wire:click=search class="btn btn-sm btn-secondary">Search</button> --}}
-            {{-- <a href="" class="btn btn-sm btn-dark" onclick="localStorage.clear()">Remove filter</a>     --}}
         </div>
-    </form>
-    <table class="table table-sm">
+    </form> --}}
+    {{-- <table class="table table-sm table-active transactions_table">
         <thead>
             <tr>
                 <th>ID</th>
@@ -133,8 +175,8 @@ new class extends Component
                 
         </tbody>
         
-    </table>
-    <div class="mt-3">
+    </table> --}}
+    {{-- <div class="mt-3">
         {{ $this->results()->links(data: ['scrollTo' => false]) }}
-    </div>
+    </div> --}}
 </div>
