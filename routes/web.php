@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\TransactionController;
-
+use App\Http\Controllers\JournalEntryController;
 Route::get('/', function () {
     return view('welcome');
 });
@@ -23,4 +23,4 @@ Route::controller(AccountController::class)->group(function () {
     Route::delete('/accounts/{id}', 'destroy')->name('accounts.destroy');    
 });
 Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions.index');
-Route::get('/transactions/{id}/edit', [TransactionController::class, 'edit'])->name('transactions.edit');
+Route::get('/journal_entries', [JournalEntryController::class, 'index'])->name('journal_entries.index');

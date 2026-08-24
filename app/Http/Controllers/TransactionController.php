@@ -9,8 +9,8 @@ class TransactionController extends Controller
     public function index(){
         return view('transactions.index');
     }
-    public function edit($id){
-        $transaction = Transaction::find($id);
-        return view('transactions.edit',['transaction' => $transaction]);
-    }
+    // public function edit($id){
+    //     $transaction = Transaction::find($id);
+    //     return view('transactions.edit',['transaction' => $transaction]);
+    // }
 }

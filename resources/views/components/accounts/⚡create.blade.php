@@ -2,13 +2,14 @@
 
 use Livewire\Component;
 use App\Models\Account;
+use Illuminate\Support\Facades\DB;
 new class extends Component
 {
     public $account_name = '';
     public $head = '';
     public $normal_balance = '';
     public function save_account(){
-        Account::create([
+        DB::table('accounts')->insert([
             'name' => str_replace(['And','To','Of','For', 'A', 'The'],['and', 'to', 'of', 'for', 'a', 'the'],ucwords(strtolower($this->account_name))),
             'head' => $this->head,
             'normal_balance' => $this->normal_balance
@@ -38,7 +39,7 @@ new class extends Component
                         <div class="row mt-4">
                             <div class="col col-sm">
                                 <label for="">Head</label>
-                                <select wire:model="head" id="head" class="form-select form-select-sm bg-success-subtle">
+                                <select wire:model="head" wire:change="$js.autoSelectNormalBalance" id="head" class="form-select form-select-sm bg-success-subtle">
                                     <option value="" disabled selected>Select an account head...</option>
                                     <option value="Asset">Asset</option>
                                     <option value="Liability">Liability</option>
@@ -72,3 +73,14 @@ new class extends Component
         </div>
     </div>
 <!-- Add Account Modal ends here -->
+<script>
+    this.$js.autoSelectNormalBalance= ()=> {
+        // alert("Head of account has been selected by user");
+        if($wire.head == "Asset" || $wire.head == "Expense"){
+            $wire.normal_balance = "Debit";
+        }else if($wire.head == "Liability" || $wire.head == "Equity" || $wire.head == "Income"){
+            $wire.normal_balance = "Credit";
+        }
+        
+    }    
+</script>

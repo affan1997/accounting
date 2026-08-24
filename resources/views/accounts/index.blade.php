@@ -136,9 +136,10 @@
             $("#delete_account_alert").fadeTo(2000, 500).slideUp(500, function(){
                 $("#delete_account_alert").slideUp(500);
             });
+            
        }) ;
-       var head = document.getElementById("head");
-       var head_value =head.value;
+       
+       
        
     //    document.getElementById("search_form").onsubmit = function(){
     //     const search = document.querySelector('input[name="search"]').value;
@@ -152,6 +153,18 @@
     //    };
     
     </script>
-    
+    <script>
+        // accounting rule states that if account head==Asset || head ==Expense -> normal_balance = debit
+        // function autoSelectNormalBalance(){
+        //     const head_options = document.getElementById("head").options;
+        //     const normal_balance_options = document.getElementById("normal_balance").options;
+        //     for(var i=0; i<head_options.length; i++){
+        //         if(head_options[i].text == "Asset"){
+        //             document.getElementById("normal_balance").selectedIndex = 1;
+        //             normal_balance_options[1].selected = true;
+        //         }
+        //     }
+        // }
+    </script>
 </body>
 </html>
